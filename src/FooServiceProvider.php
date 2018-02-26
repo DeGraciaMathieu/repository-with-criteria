@@ -22,7 +22,7 @@ class FooServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             \Foo\Contracts\CarRepository::class,
-            \Foo\Repositories\EloquentCarRepository::class,
+            \Foo\Repositories\EloquentCarRepository::class
         );
     }
 }

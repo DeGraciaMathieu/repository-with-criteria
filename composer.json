@@ -1,0 +1,11 @@
+{
+    "name": "liawlim/repository-with-criteria",
+    "type": "library",
+    "authors": [
+        {
+            "name": "William Suppo",
+            "email": "work@suppo.fr"
+        }
+    ],
+    "require": {}
+}

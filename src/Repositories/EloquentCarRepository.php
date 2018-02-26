@@ -2,7 +2,9 @@
 
 namespace Foo\Repositories;
 
-class EloquentCarRepository extends AbstractEloquentRepository
+use Foo\Contracts\CarRepository;
+
+class EloquentCarRepository extends AbstractEloquentRepository implements CarRepository
 {
     /**
      * Class du modèle

@@ -27,10 +27,14 @@ abstract class AbstractBean implements Bean
      *
      * @param array $attrs
      */
-    public function __construct(array $attrs)
+    public function __construct(array $attrs = [])
     {
         foreach ($attrs as $key => $value) {
             $this->setAttribute($key, $value);
+        }
+
+        if (! in_array($this->getKeyName(), $attrs)) {
+            $this->setAttribute($this->getKeyName(), null);
         }
     }
 

@@ -2,4 +2,6 @@
 
 namespace Foo\Contracts;
 
-interface CarRepository extends Repository {}
+interface CarRepository extends Repository
+{
+}

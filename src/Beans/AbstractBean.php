@@ -62,7 +62,7 @@ abstract class AbstractBean implements Bean
      * Magic setter
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($key, $value)
     {
@@ -84,7 +84,7 @@ abstract class AbstractBean implements Bean
      * Modifie la valeur du champ
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function setAttribute($key, $value)
     {
@@ -125,7 +125,7 @@ abstract class AbstractBean implements Bean
     /**
      * Détermine si la clé existe
      *
-     * @param  string  $key
+     * @param  string $key
      * @throws \Exception
      * @return void
      */
@@ -141,7 +141,7 @@ abstract class AbstractBean implements Bean
     /**
      * Détermine si une méthode de mutation existe pour le champ
      *
-     * @param  string  $key
+     * @param  string $key
      * @return bool
      */
     protected function hasSetMutator($key)

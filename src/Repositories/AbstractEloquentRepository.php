@@ -31,9 +31,11 @@ class AbstractEloquentRepository implements Repository
     {
         $models = $this->model()->get();
 
-        return $models->map(function ($model) {
-            return $this->makeBean($model->getAttributes());
-        })->toArray();
+        return $models->map(
+            function ($model) {
+                return $this->makeBean($model->getAttributes());
+            }
+        )->toArray();
     }
 
     /**
@@ -96,7 +98,7 @@ class AbstractEloquentRepository implements Repository
     /**
      * Retourne un bean à partir d'attributs
      *
-     * @param  array  $attrs
+     * @param  array $attrs
      * @return \Foo\Contracts\Bean
      */
     protected function makeBean(array $attrs)

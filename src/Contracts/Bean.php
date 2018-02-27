@@ -21,7 +21,7 @@ interface Bean
     /**
      * Retourne la valeur d'un champ
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getAttribute($key);
@@ -30,7 +30,7 @@ interface Bean
      * Modifie la valeur d'un champ
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function setAttribute($key, $value);
 

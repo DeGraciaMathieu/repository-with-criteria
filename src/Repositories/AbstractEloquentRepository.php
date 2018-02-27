@@ -68,21 +68,45 @@ class AbstractEloquentRepository implements Repository
         $exists = ! is_null($bean->getKey());
 
         if ($exists) {
-            $model = $this->model()->find($bean->getKey());
-
-            if (! $model) {
-                throw new Exception("Model not found");
-            }
-
-            $model->update($attrs);
-        } else {
-            $model = $this->model()->newInstance($attrs);
-
-            $model->save();
+            return $this->saveBean($bean, $attrs);
         }
 
-        $model->save();
+        return $this->saveNewBean($attrs);
     }
+
+    /**
+     * Enregistre un bean existant
+     * @param  \Foo\Contracts\Bean $bean
+     * @param  array $attrs
+     * @throws \Exception
+     * @return void
+     */
+    protected function saveBean(Bean $bean, $attrs)
+    {
+        $model = $this->model()->find($bean->getKey());
+
+        if (! $model) {
+            throw new Exception("Model not found");
+        }
+
+        $model->update($attrs);
+
+        return $model;
+    }
+
+    /**
+     * Enregistre un nouveau bean
+     * @param  array $attrs
+     * @return void
+     */
+    protected function saveNewBean($attrs)
+    {
+        $model = $this->model()->newInstance($attrs);
+
+        $model->save();
+
+        return $model;
+    }    
 
     /**
      * Supprime un bean

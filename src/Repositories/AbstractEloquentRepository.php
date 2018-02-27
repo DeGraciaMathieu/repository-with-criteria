@@ -29,10 +29,10 @@ class AbstractEloquentRepository implements Repository
      */
     public function all()
     {
-        $rows = $this->model()->get();
+        $models = $this->model()->get();
 
-        return $rows->map(function ($row) {
-            return $this->makeBean($row->getAttributes());
+        return $models->map(function ($model) {
+            return $this->makeBean($model->getAttributes());
         })->toArray();
     }
 
@@ -44,9 +44,13 @@ class AbstractEloquentRepository implements Repository
      */
     public function find($id)
     {
-        $row = $this->model()->find($id);
+        $model = $this->model()->find($id);
 
-        return $this->makeBean($row->getAttributes());
+        if (! $model) {
+            throw new Exception("Model not found");
+        }
+
+        return $this->makeBean($model->getAttributes());
     }
 
     /**
@@ -61,7 +65,19 @@ class AbstractEloquentRepository implements Repository
 
         $exists = ! is_null($bean->getKey());
 
-        $model = $this->model()->newInstance($attrs, $exists);
+        if ($exists) {
+            $model = $this->model()->find($bean->getKey());
+
+            if (! $model) {
+                throw new Exception("Model not found");
+            }
+
+            $model->update($attrs);
+        } else {
+            $model = $this->model()->newInstance($attrs);
+
+            $model->save();
+        }
 
         $model->save();
     }
@@ -87,13 +103,13 @@ class AbstractEloquentRepository implements Repository
     {
         $class = $this->bean;
 
-        return new $class(...$attrs);
+        return new $class($attrs);
     }
 
     /**
      * Retourne une instance du modèle
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     protected function model()
     {

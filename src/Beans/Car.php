@@ -10,7 +10,8 @@ class Car extends AbstractBean
      * @var array
      */
     protected $attributes = [
-        'name', 'color',
+        'name' => null,
+        'color' => null,
     ];
 
     /**

@@ -33,7 +33,7 @@ abstract class AbstractBean implements Bean
             $this->setAttribute($key, $value);
         }
 
-        if (! in_array($this->getKeyName(), $attrs)) {
+        if (! array_key_exists($this->getKeyName(), $attrs)) {
             $this->setAttribute($this->getKeyName(), null);
         }
     }
@@ -86,7 +86,7 @@ abstract class AbstractBean implements Bean
      * @param string $key
      * @param mixed $value
      */
-    protected function setAttribute($key, $value)
+    public function setAttribute($key, $value)
     {
         $this->hasKey($key);
 
@@ -105,7 +105,7 @@ abstract class AbstractBean implements Bean
      * @param  string $key
      * @return mixed
      */
-    protected function getAttribute($key)
+    public function getAttribute($key)
     {
         $this->hasKey($key);
 
@@ -122,11 +122,6 @@ abstract class AbstractBean implements Bean
         return $this->attributes;
     }
 
-    public function toJson()
-    {
-        retunr json_encode($this->toArray());
-    }
-
     /**
      * Détermine si la clé existe
      *
@@ -136,7 +131,7 @@ abstract class AbstractBean implements Bean
      */
     protected function hasKey($key)
     {
-        $keys = array_keys($this->attributes) + [$this->getKeyName()];
+        $keys = array_merge(array_keys($this->attributes), [$this->getKeyName()]);
 
         if (! in_array($key, $keys)) {
             throw new Exception("Unexpected attribute $key");
